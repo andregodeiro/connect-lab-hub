@@ -1,0 +1,8 @@
+.switch {
+  background: rgb(60, 60, 60);
+  border-radius: 100px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(41, 141, 41);
+}

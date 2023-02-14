@@ -1,0 +1,30 @@
+.modalOverlay {
+  background-color: rgba(62, 132, 193, 0.453);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  max-width: 500px;
+  max-height: 300px;
+  height: 70%;
+  width: 70%;
+  background-color: bisque;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.modalContainer img {
+  width: 300px;
+}
+
+.modalContainer a {
+  cursor: pointer;
+}

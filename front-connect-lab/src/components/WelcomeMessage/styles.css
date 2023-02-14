@@ -1,0 +1,8 @@
+.welcomeTile {
+  text-align: center;
+  padding: 20px;
+}
+
+.welcomeTile span {
+  color: #0494dc;
+}
