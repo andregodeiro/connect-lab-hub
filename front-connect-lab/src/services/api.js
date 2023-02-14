@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://connectlab.onrender.com/",
+  baseURL: "http://localhost:3000/",
 });
 
 export const createSession = async (email, password) => {
