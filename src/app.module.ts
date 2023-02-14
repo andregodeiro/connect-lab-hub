@@ -18,7 +18,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true,
       autoLoadEntities: true,
       migrations: ['src/migration/**/*.ts'],
       migrationsRun: false,
