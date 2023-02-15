@@ -20,24 +20,26 @@ export class DevicesService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(dto: CreateDeviceDto): Promise<string> {
-    const device = new Device();
-    device.name = dto.name;
-    device.photoUrl = dto.photoUrl;
-    device.type = dto.type;
-    device.madeBy = dto.madeBy;
-    await this.deviceRepository.save(device);
+  async create(devicesDto: CreateDeviceDto[]): Promise<string> {
+    for (const dto of devicesDto) {
+      const device = new Device();
+      device.name = dto.name;
+      device.photoUrl = dto.photoUrl;
+      device.type = dto.type;
+      device.madeBy = dto.madeBy;
+      await this.deviceRepository.save(device);
 
-    const info = new Info();
-    info.ip_address = dto.ip_address;
-    info.mac_address = dto.mac_address;
-    info.signal = dto.signal;
-    await this.infoRepository.save(info);
+      const info = new Info();
+      info.ip_address = dto.ip_address;
+      info.mac_address = dto.mac_address;
+      info.signal = dto.signal;
+      await this.infoRepository.save(info);
 
-    device.info = info;
-    await this.deviceRepository.save(device);
+      device.info = info;
+      await this.deviceRepository.save(device);
+    }
 
-    return 'Dispositivo criado com sucesso!';
+    return 'Dispositivos criados com sucesso!';
   }
 
   async findAll(): Promise<Device[]> {
