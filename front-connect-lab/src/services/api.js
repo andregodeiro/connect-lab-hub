@@ -27,7 +27,7 @@ export const getUser = async () => {
 
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
 
-  return api.get(`/users/${id}`);
+  return api.get(`/users/profile`);
 };
 
 export const getDevice = async () => {
@@ -43,7 +43,9 @@ export const addUserDevice = async (listUserDevices) => {
 
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
 
-  return await api.post("/userDevices", { ...listUserDevices });
+  console.log(listUserDevices);
+
+  return await api.post("/devices/link", { ...listUserDevices });
 };
 
 export const userDeviceList = async () => {
@@ -54,7 +56,7 @@ export const userDeviceList = async () => {
 
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
 
-  return await api.get(`/userDevices/user/${id}`);
+  return await api.get(`/users/devices/`);
 };
 
 export const deleteDevice = async (selectedDevice) => {
@@ -62,7 +64,7 @@ export const deleteDevice = async (selectedDevice) => {
 
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
 
-  const teste = await api.delete(`/userDevices/${selectedDevice}`);
+  const teste = await api.delete(`/users/device/${selectedDevice}`);
 
   return teste;
 };

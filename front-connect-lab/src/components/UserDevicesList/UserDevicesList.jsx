@@ -32,6 +32,7 @@ export const UserDevicesList = () => {
     (async () => {
       const response = await userDeviceList();
       setDevicesList(response.data);
+      console.log(response.data);
       setLoading(false);
     })();
   }, []);
@@ -58,8 +59,8 @@ export const UserDevicesList = () => {
       ) : (
         <DeviceCard>
           <ul>
-            {userDevicesList.map(({ device, _id }) => (
-              <li key={device._id}>
+            {userDevicesList.map(({ device, id }) => (
+              <li key={device.info.virtual_id}>
                 <div className="userDeviceCard">
                   <div className="deviceImage">
                     <img src={device.photoUrl} alt={device.name} />
@@ -69,7 +70,11 @@ export const UserDevicesList = () => {
                     <h3>{device.name}</h3>
                     <div className="switch-delete-buttons">
                       <Swtich />
-                      <DeleteButton onClick={() => deleteSelectedDevice(_id)}>
+                      <DeleteButton
+                        onClick={() =>
+                          deleteSelectedDevice(device.info.virtual_id)
+                        }
+                      >
                         Desparear
                       </DeleteButton>
                     </div>

@@ -55,12 +55,12 @@ export const UserProfile = () => {
           </div>
           <div className="userAdress">
             <p>
-              {user.userAddress.street}, {user.userAddress.number}
+              {user.address.street}, {user.address.number}
             </p>
             <p>
-              {user.userAddress.city}, {user.userAddress.state}
+              {user.address.city}, {user.address.state}
             </p>
-            <p>{user.userAddress.zipCode}</p>
+            <p>{user.address.zipCode}</p>
           </div>
 
           <div className="buttons">

@@ -34,6 +34,7 @@ export const DevicesCard = () => {
   };
 
   const openAndSet = (device) => {
+    console.log(device);
     setDeviceModal(device);
     openModal();
   };
@@ -46,20 +47,16 @@ export const DevicesCard = () => {
     })();
   }, []);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
-
   const addDevice = async (device) => {
     setLoadingBtn(true);
 
     const deviceFormated = {
-      user: user._id,
-      device: device._id,
-      is_on: false,
-      local: "631b34696f2d2f24a7c0c960",
-      room: "Quarto",
+      userId: user.id,
+      deviceId: device.info.virtual_id,
+      status: "Ligado",
+      location: "Sala",
     };
+    console.log(deviceFormated);
     await addUserDevice(deviceFormated);
     setLoadingBtn(false);
     showToastMessage();
