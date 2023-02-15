@@ -22,6 +22,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       migrations: ['src/migration/**/*.ts'],
       migrationsRun: false,
       logging: true,
+      synchronize: true,
     }),
     AuthenticationModule,
     DevicesModule,
