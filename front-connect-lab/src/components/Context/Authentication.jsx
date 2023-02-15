@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { api, createSession } from "../../services/api";
+import { api, createSession, getUserInfo } from "../../services/api";
 
 export const AuthenticationContext = createContext();
 
@@ -15,6 +15,7 @@ export const AuthenticationProvider = ({ children }) => {
     const recoveredUser = localStorage.getItem("user");
 
     if (recoveredUser) {
+      console.log(recoveredUser);
       setUser(JSON.parse(recoveredUser));
     }
 
@@ -23,18 +24,19 @@ export const AuthenticationProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const response = await createSession(email, password);
-
     //API criar uma session e retornar user
 
-    const loggedUser = response.data.user;
-    const token = response.data.token;
-
-    localStorage.setItem("user", JSON.stringify(loggedUser));
+    const token = response;
+    console.log("TOKEN LOGIN: ", token);
     localStorage.setItem("token", token);
+
+    const user = await getUserInfo(token);
+    console.log(user);
+    localStorage.setItem("user", JSON.stringify(user));
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    setUser(loggedUser);
+    setUser(user);
     navigate("/home");
   };
 

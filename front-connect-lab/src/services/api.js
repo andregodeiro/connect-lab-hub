@@ -5,7 +5,18 @@ export const api = axios.create({
 });
 
 export const createSession = async (email, password) => {
-  return api.post("/auth/login", { email, password });
+  const response = await api.post("/auth/login", { email, password });
+  console.log("RESPOSTA: ", response);
+  const token = response.data;
+  console.log("TOKEN:", token);
+  return token;
+};
+
+export const getUserInfo = async (token) => {
+  const response = await api.get("/users/profile", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
 };
 
 export const getUser = async () => {

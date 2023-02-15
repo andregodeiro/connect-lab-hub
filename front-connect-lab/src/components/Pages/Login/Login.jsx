@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { AuthenticationContext } from "../../Context/Authentication";
+import { createSession } from "../../../services/api";
 
 export const Login = () => {
   const { authenticated, login } = useContext(AuthenticationContext);
@@ -20,16 +21,41 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
-  const userLogin = (user) => {
+  const userLogin = async (data) => {
     console.log({ email, password });
-    login(email, password); //integração com o context e com a API
+    try {
+      await login(data.email, data.password);
+      window.location = "/home";
+    } catch (error) {
+      console.log(error);
+      setError("password", {
+        type: "manual",
+        message: "Invalid email or password",
+      });
+    }
   };
+
+  // const userLogin = async (data) => {
+  //   console.log({ email, password });
+  //   try {
+  //     const response = await createSession(data.email, data.password);
+  //     localStorage.setItem("user", JSON.stringify(response.payload.email));
+  //     localStorage.setItem("token", response.payload.token);
+  //     window.location = "/";
+  //   } catch (error) {
+  //     setError("password", {
+  //       type: "manual",
+  //       message: "Invalid email or password",
+  //     });
+  //   }
+  // };
 
   return (
     <ContainerLogin>
