@@ -61,10 +61,7 @@ export const userDeviceList = async () => {
 
 export const deleteDevice = async (selectedDevice) => {
   const recoveredToken = localStorage.getItem("token");
-
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
-
-  const teste = await api.delete(`/users/device/${selectedDevice}`);
-
+  const teste = await api.delete(`/devices/user/${selectedDevice}`);
   return teste;
 };

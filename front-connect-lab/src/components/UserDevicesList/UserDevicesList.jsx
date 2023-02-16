@@ -32,7 +32,7 @@ export const UserDevicesList = () => {
     (async () => {
       const response = await userDeviceList();
       setDevicesList(response.data);
-      console.log(response.data);
+      console.log(response);
       setLoading(false);
     })();
   }, []);
@@ -45,6 +45,7 @@ export const UserDevicesList = () => {
 
   const deleteSelectedDevice = async (id) => {
     setLoading(true);
+    console.log(id);
     await deleteDevice(id);
     const refresh = await userDeviceList();
     setDevicesList(refresh.data);
@@ -70,11 +71,7 @@ export const UserDevicesList = () => {
                     <h3>{device.name}</h3>
                     <div className="switch-delete-buttons">
                       <Swtich />
-                      <DeleteButton
-                        onClick={() =>
-                          deleteSelectedDevice(device.info.virtual_id)
-                        }
-                      >
+                      <DeleteButton onClick={() => deleteSelectedDevice(id)}>
                         Desparear
                       </DeleteButton>
                     </div>
