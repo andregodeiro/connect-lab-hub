@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, UseGuards, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  UseGuards,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { LinkDeviceDto } from 'src/dto/link-device.dto';
 import { CreateDeviceDto } from '../dto/create-device.dto';
@@ -33,5 +41,11 @@ export class DevicesController {
       linkDeviceDto.location,
       linkDeviceDto.status,
     );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Delete('user/:id')
+  async unpairDevice(@Param('id') id: number) {
+    await this.devicesService.unpairDevice(id);
   }
 }

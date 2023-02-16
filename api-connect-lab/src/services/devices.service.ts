@@ -111,4 +111,9 @@ export class DevicesService {
       .andWhere('user_devices.user_id = :userId', { userId })
       .getOne();
   }
+
+  async unpairDevice(id: number): Promise<string> {
+    await this.userDevicesRepository.delete(id);
+    return `Dispositivo ${id} despareado com sucesso`;
+  }
 }
