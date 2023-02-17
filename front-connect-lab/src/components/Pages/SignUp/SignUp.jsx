@@ -1,4 +1,12 @@
-import { Button, FormSignUp, FormSignUpHeader, Input } from "../../../styles";
+import {
+  Button,
+  FormSignUp,
+  FormSignUpContainer,
+  FormSignUpHeader,
+  FormSignUpImage,
+  FormSignUpMain,
+  Input,
+} from "../../../styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -6,6 +14,7 @@ import { api } from "../../../services/api";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TextField from "@mui/material/TextField";
 
 export const SignUp = () => {
   //Validação YUP
@@ -51,11 +60,6 @@ export const SignUp = () => {
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
-
-  //user = e (parâmetro)
-  // const newUser = (user) => {
-  //   console.log(user);
-  // };
 
   const catchCep = (user) => {
     const cep = user.target.value.replace(/\D/g, "");
@@ -121,95 +125,150 @@ export const SignUp = () => {
   };
 
   return (
-    <div>
-      <FormSignUpHeader>
-        <img src="https://i.imgur.com/pTj5VAl.png" alt="" />
-        <p>
-          criando sua conta no connectlab você integrará todos os seus
-          dispositivos em um só ambiente!
-        </p>
-      </FormSignUpHeader>
-      <div>
-        <div className="formContainer">
-          <FormSignUp>
-            <form onSubmit={handleSubmit(createUser)}>
-              <div className="formSignUp">
-                <div className="signUpData">
-                  <h3>Dados Pessoais</h3>
-                  <label htmlFor="">Nome Completo</label>
-                  <Input type="text" {...register("fullName")} />
-                  <small>{errors.fullName?.message}</small>
+    <FormSignUpContainer>
+      <FormSignUpImage></FormSignUpImage>
+      <FormSignUpMain>
+        <FormSignUpHeader>
+          <img src="https://i.imgur.com/pTj5VAl.png" alt="" />
+          <p>
+            criando sua conta no connectlab você integrará todos os seus
+            dispositivos em um só ambiente!
+          </p>
+        </FormSignUpHeader>
+        <div>
+          <div className="formContainer">
+            <FormSignUp>
+              <form onSubmit={handleSubmit(createUser)}>
+                <div className="formSignUp">
+                  <div className="signUpData">
+                    <h3>Dados Pessoais</h3>
 
-                  <label htmlFor="">E-mail</label>
-                  <Input type="text" {...register("email")} />
-                  <small>{errors.email?.message}</small>
+                    <TextField
+                      className="outlined-basic"
+                      label="Nome Completo"
+                      variant="standard"
+                      {...register("fullName")}
+                      error={errors.fullName ? true : false}
+                      helperText={errors.fullName?.message}
+                    />
 
-                  <label htmlFor="">Foto de Perfil</label>
-                  <Input
-                    type="text"
-                    placeholder="Insira uma URL"
-                    {...register("photoUrl")}
-                  />
+                    <TextField
+                      className="outlined-basic"
+                      label="E-mail"
+                      variant="standard"
+                      {...register("email")}
+                      error={errors.email ? true : false}
+                      helperText={errors.email?.message}
+                    />
 
-                  <label htmlFor="">Senha</label>
-                  <Input type="password" {...register("password")} />
-                  <p>{errors.password?.message}</p>
+                    <TextField
+                      className="outlined-basic"
+                      label="Foto de Perfil"
+                      variant="standard"
+                      {...register("photoUrl")}
+                    />
 
-                  <label htmlFor="">Confirme a senha</label>
-                  <Input type="password" {...register("confirmPassword")} />
-                  <small>{errors.confirmPassword?.message}</small>
+                    <TextField
+                      className="outlined-basic"
+                      label="Senha"
+                      type={"password"}
+                      variant="standard"
+                      {...register("password")}
+                      error={errors.password ? true : false}
+                      helperText={errors.password?.message}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Confirme a Senha"
+                      type={"password"}
+                      variant="standard"
+                      {...register("confirmPassword")}
+                      error={errors.confirmPassword ? true : false}
+                      helperText={errors.confirmPassword?.message}
+                    />
+                  </div>
+
+                  <div className="signUpAdress">
+                    <h3>Endereço</h3>
+                    <TextField
+                      className="outlined-basic"
+                      label="CEP"
+                      variant="standard"
+                      {...register("zipCode")}
+                      error={errors.zipCode ? true : false}
+                      helperText={errors.zipCode?.message}
+                      onBlur={catchCep}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Logradouro"
+                      variant="standard"
+                      {...register("street")}
+                      error={errors.street ? true : false}
+                      helperText={errors.street?.message}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Bairro"
+                      variant="standard"
+                      {...register("neighborhood")}
+                      error={errors.neighborhood ? true : false}
+                      helperText={errors.neighborhood?.message}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Cidade"
+                      variant="standard"
+                      {...register("city")}
+                      error={errors.city ? true : false}
+                      helperText={errors.city?.message}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Estado"
+                      variant="standard"
+                      {...register("state")}
+                      error={errors.state ? true : false}
+                      helperText={errors.state?.message}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Número"
+                      variant="standard"
+                      {...register("number")}
+                      error={errors.number ? true : false}
+                      helperText={errors.number?.message}
+                    />
+
+                    <TextField
+                      className="outlined-basic"
+                      label="Complemento"
+                      variant="standard"
+                      {...register("complement")}
+                      error={errors.complement ? true : false}
+                      helperText={errors.complement?.message}
+                    />
+                  </div>
                 </div>
-
-                <div className="signUpAdress">
-                  <h3>Endereço</h3>
-                  <label htmlFor="">CEP</label>
-                  <Input
-                    type="text"
-                    id="cep"
-                    {...register("zipCode")}
-                    onBlur={catchCep}
-                  />
-                  <small>{errors.zipCode?.message}</small>
-
-                  <label htmlFor="">Logradouro</label>
-                  <Input type="text" id="logradouro" {...register("street")} />
-
-                  <label htmlFor="">Bairro</label>
-                  <Input
-                    type="text"
-                    id="bairro"
-                    {...register("neighborhood")}
-                  />
-
-                  <label htmlFor="">Cidade</label>
-                  <Input type="text" id="cidade" {...register("city")} />
-
-                  <label htmlFor="">Estado</label>
-                  <Input type="text" id="uf" {...register("state")} />
-
-                  <label htmlFor="">Número</label>
-                  <Input type="number" id="numero" {...register("number")} />
-
-                  <label htmlFor="">Complemento</label>
-                  <Input
-                    ype="text"
-                    id="complemento"
-                    {...register("complement")}
-                  />
+                <div className="sendButton">
+                  <Button type="submit">cadastrar</Button>
+                  <ToastContainer />
                 </div>
+              </form>
+              <div className="loginButton">
+                <Link to="/">login</Link>
               </div>
-              <div className="sendButton">
-                <Button type="submit">cadastrar</Button>
-                <ToastContainer />
-              </div>
-            </form>
-            <div className="loginButton">
-              <Link to="/">login</Link>
-            </div>
-          </FormSignUp>
+            </FormSignUp>
+          </div>
         </div>
-      </div>
-    </div>
+      </FormSignUpMain>
+    </FormSignUpContainer>
   );
 };
 

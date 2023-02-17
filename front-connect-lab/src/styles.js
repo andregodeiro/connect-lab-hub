@@ -2,11 +2,8 @@ import styled from "styled-components";
 
 export const ContainerLogin = styled.div`
   display: flex;
-  flex-direction: column;
   text-align: center;
   align-items: center;
-  /* border: solid; */
-  justify-content: space-between;
 
   img {
     width: 350px;
@@ -21,7 +18,7 @@ export const ContainerLogin = styled.div`
   .labelInput {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     /* border: solid red; */
   }
 
@@ -54,6 +51,18 @@ export const ContainerLogin = styled.div`
     text-decoration: none;
     color: black;
   }
+`;
+
+export const LoginImage = styled.div`
+  width: 55vw;
+  height: 100vh;
+  background-image: url("https://i.imgur.com/LcFF0Q0.jpg");
+  background-size: cover;
+`;
+
+export const LoginField = styled.div`
+  width: 45vw;
+  height: 100vh;
 `;
 
 export const Button = styled.button`
@@ -89,12 +98,36 @@ export const Label = styled.label`
   text-align: left;
 `;
 
+export const FormSignUpContainer = styled.div`
+  display: flex;
+`;
+export const FormSignUpImage = styled.div`
+  width: 55vw;
+  height: 100vh;
+  background-image: url("https://i.imgur.com/LcFF0Q0.jpg");
+  background-size: cover;
+`;
+
+export const FormSignUpMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0 auto;
+`;
+
 export const FormSignUpHeader = styled.div`
   text-align: center;
+  margin-bottom: 60px;
 
   img {
     width: 350px;
     margin-top: 50px;
+  }
+
+  p {
+    font-size: 16px;
   }
 `;
 
@@ -103,10 +136,14 @@ export const FormSignUp = styled.div`
   padding: 10px;
   margin: 0 auto;
   width: 100%;
-  max-width: 50%;
+  max-width: 100%;
 
   span {
     padding: 10px;
+  }
+
+  .outlined-basic {
+    width: 350px;
   }
 
   .formSignUp {
