@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { userDeviceList, deleteDevice } from "../../services/api";
+import { userDeviceList, deleteDevice, userDevice } from "../../services/api";
 import { DeviceCard } from "../../styles";
 import { Loading } from "../Loading/Loading";
 import { Button, DeleteButton } from "../../styles";
@@ -23,16 +23,19 @@ export const UserDevicesList = () => {
     setIsOpen(false);
   };
 
-  const openAndSet = (device) => {
-    setDeviceModal(device);
+  const openAndSet = async (id) => {
+    const response = await userDevice(id);
+    console.log("Lista de Dispositivos do Usuário: ", response.data);
+    const userDeviceResp = response.data;
+    setDeviceModal(userDeviceResp);
+    console.log("DeviceModal: ", deviceModal);
     openModal();
   };
 
   useEffect(() => {
     (async () => {
       const response = await userDeviceList();
-      setDevicesList(response.data);
-      console.log(response);
+      const userDevice = setDevicesList(response.data);
       setLoading(false);
     })();
   }, []);
@@ -78,7 +81,7 @@ export const UserDevicesList = () => {
 
                     <Button
                       className="details-btn"
-                      onClick={() => openAndSet(device)}
+                      onClick={() => openAndSet(id)}
                     >
                       Detalhes
                     </Button>
@@ -101,15 +104,19 @@ export const UserDevicesList = () => {
           <div className="modal-container">
             <div className="device-container">
               <div className="device-img">
-                <img src={deviceModal.photoUrl} alt={deviceModal.name} />
+                <img
+                  src={deviceModal.device.photoUrl}
+                  alt={deviceModal.device.name}
+                />
               </div>
               <div className="device-data">
-                <h2>Dispositivo: {deviceModal.name}</h2>
-                <h5>Fabricante: {deviceModal.madeBy}</h5>
-                <p>{deviceModal.type}</p>
-                <p>Endereço IP: {deviceModal.info.ip_address}</p>
-                <p>Endereço MAC: {deviceModal.info.mac_address}</p>
-                <p>Sinal: {deviceModal.info.signal}</p>
+                <h2>Dispositivo: {deviceModal.device.name}</h2>
+                <h5>Fabricante: {deviceModal.device.madeBy}</h5>
+                <p>{deviceModal.device.type}</p>
+                <p>Local: {deviceModal.location}</p>
+                <p>Endereço IP: {deviceModal.device.info.ip_address}</p>
+                <p>Endereço MAC: {deviceModal.device.info.mac_address}</p>
+                <p>Sinal: {deviceModal.device.info.signal}</p>
               </div>
             </div>
             <div className="modal-btn">

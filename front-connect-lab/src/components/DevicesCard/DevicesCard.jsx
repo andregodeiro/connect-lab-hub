@@ -17,6 +17,7 @@ export const DevicesCard = () => {
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [deviceModal, setDeviceModal] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("Não Selecionado");
   const { user } = useContext(AuthenticationContext);
 
   const openModal = () => {
@@ -53,13 +54,15 @@ export const DevicesCard = () => {
     const deviceFormated = {
       userId: user.id,
       deviceId: device.info.virtual_id,
-      status: "Ligado",
-      location: "Sala",
+      status: "Desligado",
+      location: selectedLocation,
     };
-    console.log(deviceFormated);
-    await addUserDevice(deviceFormated);
-    setLoadingBtn(false);
-    showToastMessage();
+    setTimeout(async () => {
+      await addUserDevice(deviceFormated);
+      setLoadingBtn(false);
+      showToastMessage();
+      closeModal();
+    }, Math.floor(Math.random() * 2000) + 3000);
   };
 
   return (
@@ -108,17 +111,22 @@ export const DevicesCard = () => {
                 <div className="device-local">
                   <div>
                     <label>Local de instalação: </label>
-                    <select className="device-local-select">
+                    <select
+                      className="device-local-select"
+                      onChange={(event) =>
+                        setSelectedLocation(event.target.value)
+                      }
+                    >
                       <option>Casa</option>
                       <option>Escritório</option>
                       <option>Fábrica</option>
                     </select>
                   </div>
                 </div>
-                <Input
+                {/* <Input
                   className="device-local-input"
-                  placeholder="Onde o dispositivo está instalado?"
-                />
+                  placeholder="Em qual cômodo o dispositivo está instalado?"
+                /> */}
               </div>
             </div>
 
