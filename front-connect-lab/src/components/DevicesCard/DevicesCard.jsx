@@ -17,7 +17,7 @@ export const DevicesCard = () => {
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [deviceModal, setDeviceModal] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState("Não Selecionado");
+  const [selectedLocation, setSelectedLocation] = useState("Casa");
   const { user } = useContext(AuthenticationContext);
 
   const openModal = () => {
