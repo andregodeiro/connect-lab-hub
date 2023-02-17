@@ -9,12 +9,30 @@ export const SearchBar = ({ children }) => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState([]);
-  const [searchDevice, setSearchDevice] = useState([]);
+  const [filteredDevices, setFilteredDevices] = useState([]);
 
   const [searchParameter] = useState(["name"]);
 
   useEffect(() => {
+    console.log("useEffect:", search);
+    const filteredDevices = devices.filter((device) => {
+      return searchParameter.some((newDevice) => {
+        return (
+          device[newDevice]
+            ?.toString()
+            ?.toLowerCase()
+            ?.indexOf(search.toLowerCase()) > -1
+        );
+      });
+    });
+    console.log("DISPOSITIVOS FILTRADOS ANTES: ", filteredDevices);
+    setFilteredDevices(filteredDevices);
+    console.log("DISPOSITIVOS FILTRADOS DEPOIS: ", filteredDevices);
+  }, [devices, search, searchParameter]);
+
+  useEffect(() => {
     (async () => {
+      setLoading(true);
       const response = await getDevice();
       setDevices(response.data);
       setLoading(false);
@@ -25,23 +43,8 @@ export const SearchBar = ({ children }) => {
     return <Loading />;
   }
 
-  const filteredDevices = devices.filter((device) => {
-    return searchParameter.some((newDevice) => {
-      return (
-        device[newDevice]
-          ?.toString()
-          ?.toLowerCase()
-          ?.indexOf(search.toLowerCase()) > -1
-      );
-    });
-  });
-
-  // setSearchDevice(filteredDevices);
-
-  // create a context and set it to setDevices
-
   return (
-    <filteredDevicesProvider.Provider value={searchDevice}>
+    <filteredDevicesProvider.Provider value={filteredDevices}>
       <StyledSearchBar>
         <div>
           <form action="">
@@ -49,7 +52,10 @@ export const SearchBar = ({ children }) => {
               type="text"
               placeholder="Insira o nome de um dispositivo..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                console.log(search);
+              }}
             />
           </form>
         </div>
