@@ -26,10 +26,9 @@ export const SignUp = () => {
           "uma letra maiúscula, uma letra minúscula, " +
           "um número e um caracter especial"
       ),
-    passwordConfirm: yup
+    confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "As senhas devem ser idênticas!"),
-    phone: yup.number(),
     zipCode: yup
       .string()
       .min(8, "Insira um CEP válido")
@@ -75,11 +74,11 @@ export const SignUp = () => {
 
   const createUser = (value) => {
     const {
+      fullName,
       email,
       password,
-      fullName,
+      confirmPassword,
       photoUrl,
-      phone,
       zipCode,
       street,
       number,
@@ -89,22 +88,22 @@ export const SignUp = () => {
       complement,
     } = value;
 
+    console.log(value);
+
     api
-      .post("/auth/register", {
+      .post("/users/signup", {
+        fullName,
         email,
         password,
-        fullName,
+        confirmPassword,
         photoUrl,
-        phone,
-        userAddress: {
-          zipCode,
-          street,
-          number,
-          neighborhood,
-          city,
-          state,
-          complement,
-        },
+        zipCode,
+        street,
+        number,
+        neighborhood,
+        city,
+        state,
+        complement,
       })
       .then((response) => {
         console.log(response);
@@ -152,16 +151,13 @@ export const SignUp = () => {
                     {...register("photoUrl")}
                   />
 
-                  <label htmlFor="">Telefone</label>
-                  <Input type="number" {...register("phone")} />
-
                   <label htmlFor="">Senha</label>
                   <Input type="password" {...register("password")} />
                   <p>{errors.password?.message}</p>
 
                   <label htmlFor="">Confirme a senha</label>
-                  <Input type="password" {...register("passwordConfirm")} />
-                  <small>{errors.passwordConfirm?.message}</small>
+                  <Input type="password" {...register("confirmPassword")} />
+                  <small>{errors.confirmPassword?.message}</small>
                 </div>
 
                 <div className="signUpAdress">
