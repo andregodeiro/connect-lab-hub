@@ -22,7 +22,7 @@ export class UsersController {
     private readonly devicesService: DevicesService,
   ) {}
 
-  @Post()
+  @Post('signup')
   async create(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);
   }
