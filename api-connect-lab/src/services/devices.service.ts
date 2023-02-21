@@ -112,6 +112,23 @@ export class DevicesService {
       .getOne();
   }
 
+  async updateDeviceStatus(id: number, userId: number): Promise<string> {
+    const userDevice = await this.userDevicesRepository.findOne({
+      where: { user: { id: userId }, id: id },
+    });
+
+    console.log(userDevice);
+
+    if (!userDevice) {
+      throw new NotFoundException('Dispositivo não encontrado para o usuário!');
+    }
+
+    userDevice.status = userDevice.status === 'ligado' ? 'desligado' : 'ligado';
+    await this.userDevicesRepository.save(userDevice);
+
+    return `Status do dispositivo ${id} alterado com sucesso`;
+  }
+
   async unpairDevice(id: number): Promise<string> {
     await this.userDevicesRepository.delete(id);
     return `Dispositivo ${id} despareado com sucesso`;
