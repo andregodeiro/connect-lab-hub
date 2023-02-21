@@ -368,3 +368,14 @@ export const DeleteButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const SwtichButton = styled.button`
+  background: rgb(60, 60, 60);
+  border: none;
+  border-radius: 100px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(41, 141, 41);
+  cursor: pointer;
+`;

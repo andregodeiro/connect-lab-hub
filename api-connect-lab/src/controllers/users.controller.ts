@@ -7,6 +7,7 @@ import {
   Req,
   Query,
   Param,
+  Patch,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../services/authentication.service';
@@ -59,5 +60,13 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   async detailDevice(@Req() req, @Param('id') id: number) {
     return this.devicesService.detailDevice(id, req.user.userId);
+  }
+
+  @Patch('devices/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async udateDeviceStatus(@Req() req, @Param('id') id: number) {
+    console.log('ID: ', id);
+    console.log('userId: ', req.user.userId);
+    return this.devicesService.updateDeviceStatus(id, req.user.userId);
   }
 }

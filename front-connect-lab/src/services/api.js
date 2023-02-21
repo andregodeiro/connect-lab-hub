@@ -65,6 +65,12 @@ export const userDevice = async (id) => {
   return await api.get(`/users/devices/${id}`);
 };
 
+export const changeStatus = async (id) => {
+  const recoveredToken = localStorage.getItem("token");
+  api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
+  return await api.patch(`/users/devices/${id}`);
+};
+
 export const deleteDevice = async (selectedDevice) => {
   const recoveredToken = localStorage.getItem("token");
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { userDeviceList, deleteDevice, userDevice } from "../../services/api";
-import { DeviceCard } from "../../styles";
+import {
+  userDeviceList,
+  deleteDevice,
+  userDevice,
+  changeStatus,
+} from "../../services/api";
+import { DeviceCard, SwtichButton } from "../../styles";
 import { Loading } from "../Loading/Loading";
 import { Button, DeleteButton } from "../../styles";
 import styles from "../UserDevicesList/styles.css";
@@ -14,6 +19,7 @@ export const UserDevicesList = () => {
   const [loading, setLoading] = useState(true);
   const [deviceModal, setDeviceModal] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [deviceStatus, setDeviceStatus] = useState({});
 
   const openModal = () => {
     setIsOpen(true);
@@ -37,6 +43,13 @@ export const UserDevicesList = () => {
       const response = await userDeviceList();
       const userDevice = setDevicesList(response.data);
       setLoading(false);
+
+      const deviceStatuses = {};
+      userDevice.forEach((device) => {
+        deviceStatuses[device.id] = device.status;
+      });
+
+      setDeviceStatus(deviceStatuses);
     })();
   }, []);
 
@@ -44,6 +57,30 @@ export const UserDevicesList = () => {
     toast.success("Dispositivo deletado!", {
       position: toast.POSITION.TOP_RIGHT,
     });
+  };
+
+  const switchStatus = async (id) => {
+    await changeStatus(id);
+    console.log("trocou!");
+    setDeviceStatus((prevStatus) => ({
+      ...prevStatus,
+      [id]: prevStatus[id] === "ON" ? "OFF" : "ON",
+    }));
+  };
+
+  const showStatus = (status) => {
+    if (status.toLowerCase() === "ligado" || status.toLowerCase() === "on") {
+      return "ON";
+    } else if (
+      status.toLowerCase() === "desligado" ||
+      status.toLowerCase() === "off"
+    ) {
+      return "OFF";
+    } else {
+      return "UNKNOWN";
+    }
+    const refresh = userDeviceList();
+    setDevicesList(refresh.data);
   };
 
   const deleteSelectedDevice = async (id) => {
@@ -63,7 +100,7 @@ export const UserDevicesList = () => {
       ) : (
         <DeviceCard>
           <ul>
-            {userDevicesList.map(({ device, id }) => (
+            {userDevicesList.map(({ device, id, status }) => (
               <li key={device.info.virtual_id}>
                 <div className="userDeviceCard">
                   <div className="deviceImage">
@@ -73,7 +110,20 @@ export const UserDevicesList = () => {
                   <div className="deviceData">
                     <h3>{device.name}</h3>
                     <div className="switch-delete-buttons">
-                      <Swtich />
+                      <SwtichButton
+                        style={{
+                          color:
+                            status.toLowerCase() === "ligado"
+                              ? "green"
+                              : "grey",
+                        }}
+                        className={
+                          status.toLowerCase() === "ligado" ? "on" : "off"
+                        }
+                        onClick={() => switchStatus(id, status)}
+                      >
+                        {deviceStatus[id] || showStatus(status)}
+                      </SwtichButton>
                       <DeleteButton onClick={() => deleteSelectedDevice(id)}>
                         Desparear
                       </DeleteButton>
