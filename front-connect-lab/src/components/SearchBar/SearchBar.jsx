@@ -14,7 +14,6 @@ export const SearchBar = ({ children }) => {
   const [searchParameter] = useState(["name"]);
 
   useEffect(() => {
-    console.log("useEffect:", search);
     const filteredDevices = devices.filter((device) => {
       return searchParameter.some((newDevice) => {
         return (
@@ -25,9 +24,7 @@ export const SearchBar = ({ children }) => {
         );
       });
     });
-    console.log("DISPOSITIVOS FILTRADOS ANTES: ", filteredDevices);
     setFilteredDevices(filteredDevices);
-    console.log("DISPOSITIVOS FILTRADOS DEPOIS: ", filteredDevices);
   }, [devices, search, searchParameter]);
 
   useEffect(() => {
@@ -54,7 +51,6 @@ export const SearchBar = ({ children }) => {
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
-                console.log(search);
               }}
             />
           </form>

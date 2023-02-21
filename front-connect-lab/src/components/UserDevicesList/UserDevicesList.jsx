@@ -31,10 +31,8 @@ export const UserDevicesList = () => {
 
   const openAndSet = async (id) => {
     const response = await userDevice(id);
-    console.log("Lista de Dispositivos do Usuário: ", response.data);
     const userDeviceResp = response.data;
     setDeviceModal(userDeviceResp);
-    console.log("DeviceModal: ", deviceModal);
     openModal();
   };
 
@@ -61,7 +59,6 @@ export const UserDevicesList = () => {
 
   const switchStatus = async (id) => {
     await changeStatus(id);
-    console.log("trocou!");
     setDeviceStatus((prevStatus) => ({
       ...prevStatus,
       [id]: prevStatus[id] === "ON" ? "OFF" : "ON",
@@ -85,7 +82,6 @@ export const UserDevicesList = () => {
 
   const deleteSelectedDevice = async (id) => {
     setLoading(true);
-    console.log(id);
     await deleteDevice(id);
     const refresh = await userDeviceList();
     setDevicesList(refresh.data);

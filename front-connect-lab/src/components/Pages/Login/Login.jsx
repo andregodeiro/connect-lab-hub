@@ -36,7 +36,6 @@ export const Login = () => {
   });
 
   const userLogin = async (data) => {
-    console.log({ email, password });
     try {
       await login(data.email, data.password);
       window.location = "/home";

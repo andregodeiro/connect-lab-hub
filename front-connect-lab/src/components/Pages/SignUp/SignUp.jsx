@@ -63,8 +63,6 @@ export const SignUp = () => {
 
   const catchCep = (user) => {
     const cep = user.target.value.replace(/\D/g, "");
-    console.log(errors);
-    console.log(cep);
     fetch(`https://viacep.com.br/ws/${cep}/json/`).then((res) =>
       res.json().then((data) => {
         setValue("street", data.logradouro);
@@ -91,8 +89,6 @@ export const SignUp = () => {
       state,
       complement,
     } = value;
-
-    console.log(value);
 
     api
       .post("/users/signup", {

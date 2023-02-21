@@ -15,7 +15,6 @@ export const AuthenticationProvider = ({ children }) => {
     const recoveredUser = localStorage.getItem("user");
 
     if (recoveredUser) {
-      console.log(recoveredUser);
       setUser(JSON.parse(recoveredUser));
     }
 
@@ -27,11 +26,8 @@ export const AuthenticationProvider = ({ children }) => {
     //API criar uma session e retornar user
 
     const token = response;
-    console.log("TOKEN LOGIN: ", token);
     localStorage.setItem("token", token);
-
     const user = await getUserInfo(token);
-    console.log(user);
     localStorage.setItem("user", JSON.stringify(user));
 
     api.defaults.headers.Authorization = `Bearer ${token}`;

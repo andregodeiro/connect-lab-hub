@@ -6,9 +6,7 @@ export const api = axios.create({
 
 export const createSession = async (email, password) => {
   const response = await api.post("/auth/login", { email, password });
-  console.log("RESPOSTA: ", response);
   const token = response.data;
-  console.log("TOKEN:", token);
   return token;
 };
 
@@ -42,8 +40,6 @@ export const addUserDevice = async (listUserDevices) => {
   const recoveredToken = localStorage.getItem("token");
 
   api.defaults.headers.Authorization = `Bearer ${recoveredToken}`;
-
-  console.log(listUserDevices);
 
   return await api.post("/devices/link", { ...listUserDevices });
 };

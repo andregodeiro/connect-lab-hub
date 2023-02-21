@@ -35,7 +35,6 @@ export const DevicesCard = () => {
   };
 
   const openAndSet = (device) => {
-    console.log(device);
     setDeviceModal(device);
     openModal();
   };
