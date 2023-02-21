@@ -17,6 +17,15 @@ São alguns recursos do projeto:
 *   A aplicação exibe as informações dos dispositivos;
 *   O usuário pode desparear o dispositivo a qualquer momento.
 
+<h2>💻 Instalação</h2>
+
+- Acesse a pasta onde foi clonado o repositório do front-end;
+- Instalar a aplicação utilizando o comando `npm install`;
+- O processo não deve retornar erros. `Warns` *(Avisos)* não impedem seu funcionamento;
+- Rodar a aplicação com `npm run start`;
+
+
+
 <h2>🎨 Paleta de Cores</h2> 
 
 
@@ -54,6 +63,13 @@ Here're some of the project's best features:
 *   User can pair and link devices to their profile;
 *   The application displays device information;
 *   User can unpair the device  any time he wants.
+
+<h2>💻 Instalation</h2>
+
+- Access the folder wherer the project was cloned;
+- Install aplication using `npm install`;
+- The process should not return errors;
+- Run application with `npm run start`;
 
 
 <h2>🎨 Palette</h2> 
