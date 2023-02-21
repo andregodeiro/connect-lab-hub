@@ -83,6 +83,7 @@ connect-lab/
 - Rodar a aplicação com `npm run start:dev`;
 - Esse aplicativo requer, **excepcionalmente**, um arquivo `.env`, que deve ser inserido na raiz do projeto (`./connect-lab`);
 - Existe um aquivo de exemplo na raiz do projeto nomeado de `.example.env`, que deve ser levado como base para a criação do arquivo .env utilizado na aplicação;
+- Para injetar a lista de dispositivos, utilize o postman ou insomnia. Realize uma requisição `POST` no endpoint `localhost:3000/devices` e passar no corpo da requisição o conteúdo arquivo `devices.json`. Dessa forma todos os dispositivos serão criados e estarão acessíveis no front-end do projeto.
 
 ## 💻 Endpoints Disponíveis
 
